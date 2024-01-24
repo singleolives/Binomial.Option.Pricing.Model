@@ -13,7 +13,7 @@ def timing(f):
       ts= time()
       result = f(*args, **kw)                   #Making a generic timing wrapper function to benchmark our to binomial models
       te = time()
-      print('func:%r args:[%r, %r] took: %2.4f sec' % \
+      print('func:%r args:[%r, %r] took: %2.4f sec' % /
             (f.__name__, args, kw, te-ts))
       return result
    return wrap
@@ -23,12 +23,20 @@ def timing(f):
 # Initialise parameters
 S0 = 210.61      # initial stock price
 K = 210.61      # strike price
-T = 1.63         # time to maturity in years
+T = 1          # time to maturity in years
 r = 0.55      # annual risk-free rate
 N = 4         # number of time steps
 u = 1.2       # up-factor in binomial models
 d = 1/u       # ensure recombining tree
-opttype = 'C' # Option Type 'C' or 'P'
+opttype = 'C' # Option Type 'C' or 'P' call or put
 
 
 ########################## BINOMIAL TREE-SLOW ###################################
+#using for loops to iterate through nodes j at each time step i
+
+def tree_slow(K, T, S0, r, N, u, d, opttype = 'C'):
+   dt = T / N                                       #Precompute Constants
+   q = (np.exp(r *dt) - d) / (u - d)                #Risk neutral probability
+   discount = np.exp(-r * dt)
+                                 #### now lets initialize asset prices at maturity
+   S = np.zeros(N + 1)
