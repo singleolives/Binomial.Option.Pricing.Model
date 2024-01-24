@@ -40,3 +40,10 @@ def tree_slow(K, T, S0, r, N, u, d, opttype = 'C'):
    discount = np.exp(-r * dt)
                                  #### now lets initialize asset prices at maturity
    S = np.zeros(N + 1)
+   S[0] = S0 * d ** N            #Initializing the the bottom of the vector (tree) is the first row in the tree
+   for j in range(1, N+1):               # N+1 so it goes to the end
+      S[j] = S[j-1] * u/d           
+
+                                  ### now lets initialize the option or derivative values at maturity
+      
+
