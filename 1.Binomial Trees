@@ -1,8 +1,9 @@
  #https://www.youtube.com/watch?v=a3906k9C0fM&t=2281s
 #Binomial Option Pricing Model
 import numpy as np 
-#in this tutorial, we will be pricing a european call option
+#in this tutorial, we will be pricing a Canadian call option
 
+'''
 from functools import wraps
 from time import time 
 
@@ -10,9 +11,24 @@ def timing(f):
    @wraps(f)
    def wrap(*args, **kw):
       ts= time()
-      result = f(*args, **kw)                   #Lets make a generic timing wrapper function to benchmark our to binomial models
+      result = f(*args, **kw)                   #Making a generic timing wrapper function to benchmark our to binomial models
       te = time()
       print('func:%r args:[%r, %r] took: %2.4f sec' % \
             (f.__name__, args, kw, te-ts))
       return result
    return wrap
+'''
+   
+#################### BINOMIAL TREE REPRESENTATION #################################
+# Initialise parameters
+S0 = 210.61      # initial stock price
+K = 210.61      # strike price
+T = 1.63         # time to maturity in years
+r = 0.55      # annual risk-free rate
+N = 4         # number of time steps
+u = 1.2       # up-factor in binomial models
+d = 1/u       # ensure recombining tree
+opttype = 'C' # Option Type 'C' or 'P'
+
+
+########################## BINOMIAL TREE-SLOW ###################################
