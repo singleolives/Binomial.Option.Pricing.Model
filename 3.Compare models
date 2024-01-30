@@ -45,7 +45,7 @@ def tree_Fast(K, T, S0, r, N, u, d, opttype = 'C'):
 ##############################################################################################
 #SLOW
 @time__
-def tree_slow(K, T, S0, r, N, u, d, opttype = 'C'):
+def tree_Slow(K, T, S0, r, N, u, d, opttype = 'C'):
    dt = T / N                                       
    q = (np.exp(r *dt) - d) / (u - d)               
    discount = np.exp(-r * dt)
@@ -68,3 +68,8 @@ def tree_slow(K, T, S0, r, N, u, d, opttype = 'C'):
 
 ########################################################################################################
     #COMPARE
+         
+for N in [100, 1000, 10000, 100000, 1000000]:
+
+   tree_Slow(K, T, S0, r, N, u, d, opttype = 'C')
+   tree_Fast(K, T, S0, r, N, u, d, opttype = 'C')
