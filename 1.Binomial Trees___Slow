@@ -1,23 +1,23 @@
- #####https://www.youtube.com/watch?v=a3906k9C0fM&t=2281s
+ #https://www.youtube.com/watch?v=a3906k9C0fM&t=2281s
 #Binomial Option Pricing Model
 import numpy as np 
 #in this tutorial, we will be pricing a Canadian call option
 
-'''
+
 from functools import wraps
 from time import time 
 
-def timing(f):
+def time__(f):
    @wraps(f)
    def wrap(*args, **kw):
       ts= time()
-      result = f(*args, **kw)                   #Making a generic timing wrapper function to benchmark our to binomial models
+      result = f(*args, **kw)                   #Making a generic timing wrapper function to benchmark our to binomial models @timing
       te = time()
-      print('func:%r args:[%r, %r] took: %2.4f sec' % /
+      print('func:%r args:[%r, %r] took: %2.4f sec' % \
             (f.__name__, args, kw, te-ts))
       return result
    return wrap
-'''
+
    
 #################### BINOMIAL TREE REPRESENTATION #################################
 # Initialise parameters
@@ -34,6 +34,7 @@ opttype = 'C' # Option Type : call or put
 ########################## BINOMIAL TREE-SLOW ###################################
 #using for loops to iterate through nodes j at each time step i
 
+@time__
 def tree_slow(K, T, S0, r, N, u, d, opttype = 'C'):
    dt = T / N                                       #Precompute Constants
    q = (np.exp(r *dt) - d) / (u - d)                #Risk neutral probability
@@ -47,8 +48,16 @@ def tree_slow(K, T, S0, r, N, u, d, opttype = 'C'):
 
                                   ### now lets initialize the option or derivative values at maturity
    C = np.zeros(N+1)
-   for j in range(0, N+1):
-      C[j] = max(0, S[j] - k)    #stepping through each j-node in the final time-stamp N, and computing our payoff
+   for j in range(0, N+1):             #stepping through each j-node in the final time-stamp N, and computing our payoff
+      C[j] = max(0, S[j] - K)    
+
+                               ### now lets solve the tree by stepping backwards through tree, 
+   for i in np.arange(N, 0, -1):
+      for j in range(0, i):
+         C[j] = discount * ( q * C[j + 1] + (1 - q) * C[j])
+   
+   print(C[0])
+
+tree_slow(K, T, S0, r, N, u, d, opttype = 'C')
 
 
-      
