@@ -1,7 +1,7 @@
  #https://www.youtube.com/watch?v=a3906k9C0fM&t=2281s
 #Binomial Option Pricing Model
 import numpy as np 
-#in this tutorial, we will be pricing a Canadian call option
+#in this tutorial, we will be pricing a EU call option
 
 
 from functools import wraps
