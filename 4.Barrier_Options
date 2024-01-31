@@ -18,11 +18,21 @@ def time__(f):
    return wrap
 
 #Parameters
-S0 = 210.61     
-K = 210.61     
-T = 1          
-r = 0.55     
-N = 6        
-u = 1.2       
-d = 1/u       
-opttype = 'C' 
+S0 = 210.61      # initial stock price
+K = 210.61      # strike price
+T = 1          # time to maturity in years
+r = 0.55      # annual risk-free rate
+N = 4         # number of time steps
+u = 1.2       # up-factor in binomial models
+d = 1/u       # ensure recombining tree
+opttype = 'C' # Option Type : call or put
+H = 125       #up-and-out bariier price/value
+
+
+############################### BINOMIAL TREE SLOW (slow because using for loops)#############################
+
+def barr_slow_tree( S0,K,T,r,N,u,d,opttype = 'C', H ):            #barr = barrier 
+   dt = T/N                                  #precompute values
+   q = (np.exp(r * dt) - u) / (u - d)
+
+
